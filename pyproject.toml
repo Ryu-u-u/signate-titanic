@@ -1,0 +1,17 @@
+[project]
+name = "signate-taitanic"
+version = "0.1.0"
+description = "SIGNATE Titanic survival prediction competition"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "xgboost",
+    "lightgbm",
+    "matplotlib",
+    "seaborn",
+    "pyyaml",
+    "jupyter",
+    "ipykernel",
+]

@@ -28,5 +28,8 @@ experiments/*/model.joblib
 .DS_Store
 Thumbs.db
 
+# uv
+uv.lock
+
 # Claude
 .claude/
