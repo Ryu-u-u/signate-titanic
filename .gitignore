@@ -19,10 +19,16 @@ env/
 .vscode/
 .idea/
 
-# Processed data & models
+# Processed data
 data/processed/
+
+# Model artifacts
 experiments/*/model.pkl
 experiments/*/model.joblib
+
+# Submission files
+submit_*.csv
+experiments/*/submit.csv
 
 # OS
 .DS_Store

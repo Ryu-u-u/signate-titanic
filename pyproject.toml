@@ -14,4 +14,5 @@ dependencies = [
     "pyyaml",
     "jupyter",
     "ipykernel",
+    "optuna>=4.7.0",
 ]
