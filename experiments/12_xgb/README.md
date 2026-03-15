@@ -104,3 +104,12 @@ XGBoost（eXtreme Gradient Boosting）は、勾配ブースティングの **高
 - **Accuracy の標準偏差=0.0291** は全モデル中最小。fold間のブレが少なく安定した予測ができている
 - **learning_rate と n_estimators はトレードオフ**。学習率を下げるなら木の本数を増やす必要がある
 - **正則化パラメータ（reg_lambda, max_depth）が過学習を防ぐ**。445件という少量データでは特に重要
+
+## CV vs Local Public AUC 比較
+
+| 提出ファイル | CV AUC | Local Public AUC (全446件) | 差分 (CV - Public) | 判定 |
+|---|---|---|---|---|
+| submit.csv | 0.8561 | 0.8707 | -0.0146 | やや過学習気味 |
+
+※ 差分の目安: |差| < 0.005 → 健全、0.005〜0.015 → やや過学習気味、> 0.015 → 過学習傾向
+※ 正解ラベル精度: 98.2% (SIGNATE実測 AUC=0.9828)

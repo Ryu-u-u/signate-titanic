@@ -1,7 +1,9 @@
 import numpy as np
+import pandas as pd
 from sklearn.metrics import accuracy_score, f1_score, log_loss, roc_auc_score
 from sklearn.model_selection import StratifiedKFold
 from src.config import SEED, N_FOLDS
+from src.data import load_submission, load_test_ground_truth
 
 
 def calc_metrics(y_true, y_pred, y_proba=None) -> dict:
@@ -118,3 +120,36 @@ def cross_validate_oof(model_fn, X, y, n_folds: int = N_FOLDS, seed: int = SEED,
         if k != "fold"
     }
     return fold_metrics, mean_metrics, oof_pred, oof_proba, models
+
+
+def evaluate_submission(submission_path: str, confidence_filter: str = None) -> dict:
+    """提出CSVを正解ラベルで評価し、AUCを返す。
+
+    Parameters
+    ----------
+    submission_path : str
+        提出CSVファイルのパス（ヘッダーなし、id,prob の2列）
+    confidence_filter : str or None
+        None=全件(446), "sure"=unique+all_agreeのみ(424件), "unique"=uniqueのみ(359件)
+
+    Returns
+    -------
+    dict: {"auc": float, "n_samples": int, "confidence_filter": str}
+    """
+    sub = load_submission(submission_path)
+    gt = load_test_ground_truth()
+
+    merged = pd.merge(sub, gt, on="id", how="inner")
+
+    if confidence_filter == "unique":
+        merged = merged[merged["confidence"] == "unique"]
+    elif confidence_filter == "sure":
+        merged = merged[merged["confidence"].isin(["unique", "all_agree"])]
+
+    auc = roc_auc_score(merged["survived"], merged["prob"])
+
+    return {
+        "auc": auc,
+        "n_samples": len(merged),
+        "confidence_filter": confidence_filter or "all",
+    }

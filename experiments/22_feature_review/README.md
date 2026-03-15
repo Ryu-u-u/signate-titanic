@@ -140,3 +140,14 @@ Importance Weighting の効果:
 - **Covariate Shift 補正は「分布差がある場合のみ」有効**。このデータセットでは train/test の分布がほぼ同じだったため、Importance Weighting の効果はなかった
 - **特徴量エンジニアリング > ハイパーパラメータチューニング**。domain+missing の追加（AUC+0.0165）はチューニングよりも大きな改善をもたらした
 - **KS検定で分布差を定量的に評価できる**。「なんとなく分布が違う」ではなく、統計的に有意かどうかを判断できる
+
+## CV vs Local Public AUC 比較
+
+| 提出ファイル | CV AUC | Local Public AUC (全446件) | 差分 (CV - Public) | 判定 |
+|---|---|---|---|---|
+| submit_v1plus_voting.csv (root) | N/A | 0.8746 | N/A | N/A |
+| submit_domain_missing_voting.csv (root) | 0.8804 | 0.8754 | +0.0050 | やや過学習気味 |
+| submit_domain_missing_weighted_voting.csv (root) | N/A | 0.8657 | N/A | N/A |
+
+※ 差分の目安: |差| < 0.005 → 健全、0.005〜0.015 → やや過学習気味、> 0.015 → 過学習傾向
+※ 正解ラベル精度: 98.2% (SIGNATE実測 AUC=0.9828)

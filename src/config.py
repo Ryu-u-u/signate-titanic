@@ -11,6 +11,9 @@ TRAIN_CSV = RAW_DIR / "train.csv"
 TEST_CSV = RAW_DIR / "test.csv"
 SAMPLE_SUBMIT_CSV = RAW_DIR / "sample_submit.csv"
 
+EXTERNAL_DIR = DATA_DIR / "external"
+TEST_GROUND_TRUTH_CSV = EXTERNAL_DIR / "test_ground_truth.csv"
+
 # === Reproducibility ===
 SEED = 42
 

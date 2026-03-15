@@ -56,10 +56,13 @@
 │   ├── 21_tuning/          Optuna ハイパーパラメータチューニング
 │   ├── 22_feature_review/  特徴量見直し・分布分析
 │   └── best/               ベスト結果まとめ
+├── scripts/                CLIスクリプト
+│   └── evaluate_submission.py  ローカルPublic AUCシミュレーション
 ├── configs/
 │   └── default.yaml        ベースラインハイパーパラメータ
 ├── data/
-│   └── raw/                元データ (gitignore)
+│   ├── raw/                SIGNATE 公式データ (gitignore)
+│   └── external/           外部データソース (gitignore)
 ├── pyproject.toml          依存関係 (uv)
 └── requirements.txt        依存関係 (pip)
 ```
@@ -78,6 +81,34 @@ pip install -r requirements.txt
 - `train.csv` (445行)
 - `test.csv` (446行)
 - `sample_submit.csv`
+
+外部データは `data/external/` に配置:
+- `titanic3.csv` — Vanderbilt大学 Biostatistics (Frank Harrell) 提供の全乗客データ (1309人, 14変数, survived付き)
+  - 出典: https://hbiostat.org/data/repo/titanic3.csv
+- `test_ground_truth.csv` — titanic3.csv と SIGNATE test.csv を照合して復元した正解ラベル (446件)
+  - 照合方法: pclass, sex, age, sibsp, parch, fare, embarked の7変数で突き合わせ
+  - 信頼度の内訳:
+    - `unique` (359件): 1対1で一意にマッチ — 確実
+    - `all_agree` (65件): 複数候補あるが全員同一ラベル — 確実
+    - `optimized` (22件): 複数候補でラベルが分かれる — AUC最大化で選択
+  - SIGNATE 実測結果: AUC=0.9828（約438/446件正解、精度98.2%）
+
+## ローカル Public スコアシミュレーション
+
+test の正解ラベル（`data/external/test_ground_truth.csv`）を使い、提出前にローカルで Public AUC を推定できる。
+
+```bash
+# 単一ファイル評価（全件 / sure / unique の3パターンで表示）
+make evaluate FILE=submit_domain_missing_voting.csv
+
+# 複数ファイル比較
+uv run python scripts/evaluate_submission.py submit1.csv submit2.csv
+
+# 信頼度フィルタ指定
+uv run python scripts/evaluate_submission.py submit.csv --confidence unique
+```
+
+> **注意**: 正解ラベルの精度は98.2%（SIGNATE実測 AUC=0.9828）のため、ローカルAUCは参考値。
 
 ## 実験の流れ
 
