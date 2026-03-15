@@ -40,5 +40,8 @@ uv.lock
 # CatBoost cache
 catboost_info/
 
+# MkDocs build output
+site/
+
 # Claude
 .claude/

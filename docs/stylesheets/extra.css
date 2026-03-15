@@ -1,0 +1,43 @@
+/* モバイル向けテーブル横スクロール */
+.md-typeset table:not([class]) {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.82rem;
+}
+
+/* 画像レスポンシブ */
+.md-typeset img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ヒーローセクション */
+.hero-banner {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+  color: white;
+}
+
+.hero-banner h2 {
+  color: white;
+  margin: 0 0 0.5rem;
+}
+
+.hero-banner p {
+  margin: 0.3rem 0;
+  opacity: 0.95;
+}
+
+/* モバイルでのテーブルセルの最小幅 */
+@media screen and (max-width: 768px) {
+  .md-typeset table:not([class]) th,
+  .md-typeset table:not([class]) td {
+    white-space: nowrap;
+    padding: 0.5rem 0.6rem;
+  }
+}

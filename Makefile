@@ -2,7 +2,8 @@
 	run-exp23 run-exp24 run-exp25 run-exp26 run-exp27 run-exp28 \
 	run-exp29 run-exp30 run-exp31 run-exp32 run-exp33 run-exp34 \
 	run-exp35 run-exp36 \
-	run-priority-experiments run-blend-strategy evaluate
+	run-priority-experiments run-blend-strategy evaluate \
+	docs-build docs-serve
 
 # Default target
 help: ## Show this help message
@@ -88,6 +89,14 @@ run-all: ## Run all experiment scripts in order
 
 evaluate: ## Evaluate a submission CSV locally (usage: make evaluate FILE=submit.csv)
 	uv run python scripts/evaluate_submission.py $(FILE)
+
+docs-build: ## Build docs site (generates docs/ from READMEs then runs mkdocs build)
+	uv run python scripts/build_docs.py
+	uv run mkdocs build --strict
+
+docs-serve: ## Serve docs locally with hot reload (access from phone via LAN IP:8000)
+	uv run python scripts/build_docs.py
+	uv run mkdocs serve --dev-addr 0.0.0.0:8000
 
 clean: ## Remove .venv and cache files
 	rm -rf .venv __pycache__ .pytest_cache

@@ -1,0 +1,89 @@
+site_name: SIGNATE タイタニック生存予測
+site_url: https://ryu-u-u.github.io/signate-titanic/
+site_description: SIGNATE タイタニック号の生存予測コンペ — 実験記録・分析結果ダッシュボード
+
+theme:
+  name: material
+  language: ja
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: ダークモードに切替
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: ライトモードに切替
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - toc.follow
+    - search.suggest
+    - search.highlight
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+plugins:
+  - search:
+      lang: ja
+
+nav:
+  - ホーム: index.md
+  - ベスト結果: results.md
+  - 実験記録:
+    - 一覧: experiments/index.md
+    - データ分析・前処理:
+      - 00 EDA（探索的データ分析）: experiments/00_eda.md
+      - 01 前処理: experiments/01_preprocess.md
+      - 02 特徴量実験室: experiments/02_feature_lab.md
+    - 個別モデル:
+      - 10 ロジスティック回帰: experiments/10_logreg.md
+      - 11 ランダムフォレスト: experiments/11_rf.md
+      - 12 XGBoost: experiments/12_xgb.md
+      - 13 LightGBM: experiments/13_lgbm.md
+      - 14 ニューラルネットワーク: experiments/14_nn.md
+    - アンサンブル:
+      - 20 Voting / Stacking: experiments/20_ensemble.md
+      - 21 HPチューニング（Optuna）: experiments/21_tuning.md
+      - 22 特徴量見直し: experiments/22_feature_review.md
+    - 高度アンサンブル:
+      - 23 HP再チューニング: experiments/23_hp_retune_domain_missing.md
+      - 24 CatBoost: experiments/24_catboost.md
+      - 25 Advanced Stacking: experiments/25_advanced_stacking.md
+      - 26 マルチシード: experiments/26_multi_seed.md
+      - 27 Repeated-CV: experiments/27_repeated_cv.md
+      - 28 ランクアンサンブル: experiments/28_rank_ensemble.md
+    - 高度手法:
+      - 29 ターゲットエンコーディング: experiments/29_target_encoding.md
+      - 30 キャリブレーション: experiments/30_calibration.md
+      - 31 安定特徴量選択: experiments/31_stability_selection.md
+      - 32 擬似ラベリング: experiments/32_pseudo_labeling.md
+      - 33 データ拡張（Mixup）: experiments/33_augmentation.md
+      - 34 ベイジアンモデル平均: experiments/34_bayesian.md
+    - 最終最適化:
+      - 35 確率ブレンド: experiments/35_probability_blend.md
+      - 36 Hard Case分析: experiments/36_hard_case_analysis.md
